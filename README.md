@@ -1,3 +1,3 @@
 gitbucket-backup-plugin
 ===
-Provides repository backup for GitBucket on Windows and Linux
+Provides all in one backup features for GitBucket
