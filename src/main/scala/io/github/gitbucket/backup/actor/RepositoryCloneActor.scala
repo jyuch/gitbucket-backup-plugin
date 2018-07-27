@@ -34,6 +34,11 @@ class RepositoryCloneActor(mail: ActorRef) extends Actor with ActorLogging with 
       sender() ! ((): Unit)
     }
   }
+
+  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+    reportError(reason)
+    super.preRestart(reason, message)
+  }
 }
 
 object RepositoryCloneActor {

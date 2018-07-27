@@ -36,6 +36,11 @@ class DatabaseAccessActor(mail: ActorRef) extends Actor with AccountService with
       }
     }
   }
+
+  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+    reportError(reason)
+    super.preRestart(reason, message)
+  }
 }
 
 object DatabaseAccessActor {

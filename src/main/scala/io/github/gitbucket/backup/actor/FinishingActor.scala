@@ -84,6 +84,11 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
       mail ! BackupSuccess()
     }
   }
+
+  override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
+    reportError(reason)
+    super.preRestart(reason, message)
+  }
 }
 
 object FinishingActor {
