@@ -25,11 +25,14 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
   override val mailer: Option[ActorRef] = Some(mail)
 
   override def receive: Receive = {
-    case Finishing(baseDir, backupName) => {
+    case Finishing(baseDir, backupName) =>
       val tempBackupDir = new File(baseDir)
 
+      val srcDataDir = new File(gDirectory.DatabaseHome)
       val data = Directory.getDataBackupDir(tempBackupDir)
-      FileUtils.copyDirectory(new File(gDirectory.DatabaseHome), data)
+      if (srcDataDir.exists()) {
+        FileUtils.copyDirectory(srcDataDir, data)
+      }
 
       val zip = new File(config.archiveDestination.getOrElse(gDirectory.GitBucketHome), s"$backupName.zip")
       ZipUtil.pack(tempBackupDir, zip)
@@ -82,7 +85,6 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
 
       log.info("Backup complete")
       mail ! BackupSuccess()
-    }
   }
 
   override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
@@ -92,7 +94,7 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
 }
 
 object FinishingActor {
-  def props(mailer: ActorRef) = {
+  def props(mailer: ActorRef): Props = {
     Props[FinishingActor](new FinishingActor(mailer))
   }
 
