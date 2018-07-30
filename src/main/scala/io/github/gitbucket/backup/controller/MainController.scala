@@ -7,14 +7,14 @@ import org.scalatra.Ok
 
 class MainController extends ControllerBase with AdminAuthenticator with ActorService {
 
-  post("/api/v3/back/mail-test") {
+  post("/api/v3/backup/mail-test") {
     adminOnly {
       sendTestMail()
       Ok()
     }
   }
 
-  post("/api/v3/back/execute") {
+  post("/api/v3/backup/execute") {
     adminOnly {
       executeBackup()
       Ok()
