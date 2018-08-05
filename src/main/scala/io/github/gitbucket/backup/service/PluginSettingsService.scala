@@ -25,15 +25,16 @@ trait PluginSettingsService {
 
 object PluginSettingsService {
 
-  case class PluginSettings(archiveDestination: Option[String],
-                            archiveLimit: Option[Int],
-                            notifyOnSuccess: Boolean,
-                            notifyOnFailure: Boolean,
-                            notifyDestination: Option[List[String]],
-                            endpoint: Option[String],
-                            region: Option[String],
-                            accessKey: Option[String],
-                            secretKey: Option[String],
-                            bucket: Option[String])
+  case class PluginSettings(
+      archiveDestination: Option[String],
+      archiveLimit: Option[Int],
+      notifyOnSuccess: Boolean,
+      notifyOnFailure: Boolean,
+      notifyDestination: Option[List[String]],
+      endpoint: Option[String],
+      region: Option[String],
+      accessKey: Option[String],
+      secretKey: Option[String],
+      bucket: Option[String])
 
 }

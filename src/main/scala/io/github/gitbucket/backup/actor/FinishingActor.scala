@@ -100,10 +100,11 @@ object FinishingActor {
 
   sealed case class Finishing(baseDir: String, backupName: String)
 
-  case class S3Config(endpoint: String,
-                      region: String,
-                      accessKey: String,
-                      secretKey: String,
-                      bucket: String)
+  case class S3Config(
+      endpoint: String,
+      region: String,
+      accessKey: String,
+      secretKey: String,
+      bucket: String)
 
 }
