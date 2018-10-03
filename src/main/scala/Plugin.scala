@@ -12,7 +12,8 @@ class Plugin extends gitbucket.core.plugin.Plugin with ActorService {
   override val description: String = "Provide all in one backup features for GitBucket"
   override val versions: List[Version] = List(
     new Version("1.0.0"),
-    new Version("1.1.0"))
+    new Version("1.1.0"),
+    new Version("1.2.0"))
 
   private val logger = LoggerFactory.getLogger(classOf[Plugin])
 
