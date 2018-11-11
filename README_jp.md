@@ -107,6 +107,7 @@ SELECT setval('priority_priority_id_seq', (select max(priority_id) + 1 from prio
 
 |プラグインバージョン|GitBucketバージョン|
 |:-:|:-:|
+|1.2.1|4.29|
 |1.2.0|4.29|
 |1.1.0|4.28|
 |1.0.0|4.27|
