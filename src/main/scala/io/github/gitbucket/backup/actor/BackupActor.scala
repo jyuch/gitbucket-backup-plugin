@@ -31,7 +31,7 @@ class BackupActor extends Actor {
       val backupName = Directory.getBackupName
 
       val tempBackupDir = new File(gDirectory.GitBucketHome, backupName)
-      implicit val timeout: Timeout = Timeout(5 minutes)
+      implicit val timeout: Timeout = Timeout(30 minutes)
 
       val repos = (db ? DumpDatabase(tempBackupDir.getAbsolutePath)).mapTo[List[Clone]]
 
