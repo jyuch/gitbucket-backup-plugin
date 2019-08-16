@@ -28,7 +28,7 @@ object ConfigHelper {
     }
 
     def getOptionalStringList(path: String): Option[List[String]] = {
-      import collection.JavaConverters._
+      import scala.jdk.CollectionConverters._
       if (underlying.hasPath(path)) {
         Some(underlying.getStringList(path).asScala.toList)
       } else {
