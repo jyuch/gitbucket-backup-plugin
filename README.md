@@ -9,7 +9,7 @@ This plugin provides backup feature for below data.
 - User repositories
 - Wiki repositories
 - Attachment file of issue and release
-- User avatar data 
+- User avatar data
 
 And email notification what backup success or failure.
 
@@ -105,7 +105,8 @@ For more details, see [External database configuration](https://github.com/gitbu
 
 |Plugin version|GitBucket version|
 |:-:|:-|
-|1.2.1|4.29 - 4.30|
+|1.2.2|4.32|
+|1.2.1|4.29 - 4.31|
 |1.2.0|4.29|
 |1.1.0|4.28|
 |1.0.0|4.27|
