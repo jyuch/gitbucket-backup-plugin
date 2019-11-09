@@ -20,8 +20,8 @@ class Plugin extends gitbucket.core.plugin.Plugin with ActorService {
   private val logger = LoggerFactory.getLogger(classOf[Plugin])
 
   override def initialize(registry: PluginRegistry, context: ServletContext, settings: SystemSettingsService.SystemSettings): Unit = {
-    super.initialize(registry, context, settings)
-    initialize()
+    super[Plugin].initialize(registry, context, settings)
+    super[ActorService].initialize()
   }
 
   override def shutdown(registry: PluginRegistry, context: ServletContext, settings: SystemSettingsService.SystemSettings): Unit = {
