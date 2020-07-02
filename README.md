@@ -18,7 +18,8 @@ Configuration `GITBUCKET_HOME/backup.conf` as below.
 
 ```
 # Backup timing (Required)
-# For details, see http://www.quartz-scheduler.org/documentation/quartz-2.x/tutorials/crontrigger.html
+# For details, see http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+# and https://github.com/enragedginger/akka-quartz-scheduler/blob/master/README.md
 # This example, backup 12am every day
 akka {
   quartz {
