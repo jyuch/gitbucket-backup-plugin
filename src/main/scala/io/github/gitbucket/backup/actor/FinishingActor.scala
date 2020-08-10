@@ -14,7 +14,10 @@ import io.github.gitbucket.backup.actor.MailActor.BackupSuccess
 import io.github.gitbucket.backup.service.PluginSettingsService
 import io.github.gitbucket.backup.util.ErrorReporter
 import org.apache.commons.io.FileUtils
+import org.apache.commons.io.filefilter.TrueFileFilter
 import org.zeroturnaround.zip.ZipUtil
+
+import scala.jdk.CollectionConverters._
 
 class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with PluginSettingsService with ErrorReporter {
 
@@ -81,6 +84,11 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
         log.info("Upload to Object storage complete")
       }
 
+      val tempDirectoryEntries = FileUtils.iterateFiles(tempBackupDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE).asScala
+      for (it <- tempDirectoryEntries) {
+        // In Windows, can't delete temp dir because index file marked as readonly.
+        it.setWritable(true);
+      }
       FileUtils.deleteDirectory(tempBackupDir)
 
       log.info("Backup complete")
