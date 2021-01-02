@@ -106,7 +106,7 @@ For more details, see [External database configuration](https://github.com/gitbu
 
 |Plugin version|GitBucket version|
 |:-:|:-|
-|1.2.3|4.34|
+|1.2.3|4.34 - 4.35|
 |1.2.2|4.32 - 4.33|
 |1.2.1|4.29 - 4.31|
 |1.2.0|4.29|
