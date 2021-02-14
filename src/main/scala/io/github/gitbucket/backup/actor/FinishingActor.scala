@@ -9,7 +9,7 @@ import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.services.s3.AmazonS3ClientBuilder
 import com.amazonaws.services.s3.model.PutObjectRequest
 import gitbucket.core.util.{Directory => gDirectory}
-import io.github.gitbucket.backup.Directory
+import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.actor.MailActor.BackupSuccess
 import io.github.gitbucket.backup.service.PluginSettingsService
 import io.github.gitbucket.backup.util.ErrorReporter
@@ -87,7 +87,7 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
       val tempDirectoryEntries = FileUtils.iterateFiles(tempBackupDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE).asScala
       for (it <- tempDirectoryEntries) {
         // In Windows, can't delete temp dir because index file marked as readonly.
-        it.setWritable(true);
+        it.setWritable(true)
       }
       FileUtils.deleteDirectory(tempBackupDir)
 

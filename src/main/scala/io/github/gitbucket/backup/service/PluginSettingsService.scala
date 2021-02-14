@@ -1,7 +1,7 @@
 package io.github.gitbucket.backup.service
 
 import com.typesafe.config.ConfigFactory
-import io.github.gitbucket.backup.Directory
+import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.service.PluginSettingsService.PluginSettings
 import io.github.gitbucket.backup.util.ConfigHelper._
 

@@ -6,7 +6,7 @@ import akka.actor.{Actor, Props}
 import akka.pattern._
 import akka.util.Timeout
 import gitbucket.core.util.{Directory => gDirectory}
-import io.github.gitbucket.backup.Directory
+import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.actor.DatabaseAccessActor.DumpDatabase
 import io.github.gitbucket.backup.actor.FinishingActor.Finishing
 import io.github.gitbucket.backup.actor.MailActor.TestMail
@@ -27,7 +27,7 @@ class BackupActor extends Actor {
   private val packer = context.actorOf(FinishingActor.props(mailer), "packer")
 
   override def receive: Receive = {
-    case DoBackup() => {
+    case DoBackup() =>
       val backupName = Directory.getBackupName
 
       val tempBackupDir = new File(gDirectory.GitBucketHome, backupName)
@@ -42,10 +42,8 @@ class BackupActor extends Actor {
           packer ! Finishing(tempBackupDir.getAbsolutePath, backupName)
         }
       }
-    }
-    case SendTestMail() => {
+    case SendTestMail() =>
       mailer ! TestMail()
-    }
   }
 }
 

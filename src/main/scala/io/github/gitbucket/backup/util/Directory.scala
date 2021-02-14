@@ -1,4 +1,4 @@
-package io.github.gitbucket.backup
+package io.github.gitbucket.backup.util
 
 import java.io.File
 import java.time.LocalDateTime
@@ -16,11 +16,11 @@ object Directory {
   }
 
   def getRepositoryBackupDir(baseDir: File, user: String, repoName: String): File = {
-    new File(new File(new File(baseDir, "repositories"), user), s"${repoName}.git")
+    new File(new File(new File(baseDir, "repositories"), user), s"$repoName.git")
   }
 
   def getWikiBackupDir(baseDir: File, user: String, repoName: String): File = {
-    new File(new File(new File(baseDir, "repositories"), user), s"${repoName}.wiki.git")
+    new File(new File(new File(baseDir, "repositories"), user), s"$repoName.wiki.git")
   }
 
   def getRepositoryFilesBackupDir(baseDir: File, user: String, repoName: String): File = {

@@ -18,7 +18,7 @@ class DatabaseAccessActor(mail: ActorRef) extends Actor with AccountService with
   override val mailer: Option[ActorRef] = Some(mail)
 
   override def receive: Receive = {
-    case DumpDatabase(baseDir) => {
+    case DumpDatabase(baseDir) =>
 
       Database() withTransaction { implicit session =>
         val allTables = session.conn.allTableNames()
@@ -34,7 +34,6 @@ class DatabaseAccessActor(mail: ActorRef) extends Actor with AccountService with
         }
         sender() ! repos
       }
-    }
   }
 
   override def preRestart(reason: Throwable, message: Option[Any]): Unit = {

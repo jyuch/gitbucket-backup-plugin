@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit
 import akka.actor.ActorSystem
 import com.typesafe.akka.extension.quartz.QuartzSchedulerExtension
 import com.typesafe.config.ConfigFactory
-import io.github.gitbucket.backup.Directory
+import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.actor.BackupActor
 import io.github.gitbucket.backup.actor.BackupActor.{DoBackup, SendTestMail}
 

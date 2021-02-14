@@ -13,27 +13,24 @@ class MailActor extends Actor with ActorLogging with SystemSettingsService with 
   private val plugin = loadPluginSettings()
 
   def receive: Receive = {
-    case TestMail() => {
+    case TestMail() =>
       send(
         "Test mail from Backup Plugin for Windows",
         "If you seen this message, mail settings has worked well.")
-    }
 
-    case BackupSuccess() => {
+    case BackupSuccess() =>
       if (plugin.notifyOnSuccess) {
         send(
           "Backup complete",
           "The backup ended normally.")
       }
-    }
 
-    case BackupFailure(msg) => {
+    case BackupFailure(msg) =>
       if (plugin.notifyOnFailure) {
         send(
           "Backup failure",
           msg)
       }
-    }
   }
 
   def send(subject: String, body: String) : Unit = {

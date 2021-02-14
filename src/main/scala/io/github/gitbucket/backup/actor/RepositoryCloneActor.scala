@@ -4,7 +4,7 @@ import java.io.File
 
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import gitbucket.core.util.{JGitUtil, Directory => gDirectory}
-import io.github.gitbucket.backup.Directory
+import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.util.ErrorReporter
 import org.apache.commons.io.FileUtils
 
@@ -15,7 +15,7 @@ class RepositoryCloneActor(mail: ActorRef) extends Actor with ActorLogging with 
   override val mailer: Option[ActorRef] = Some(mail)
 
   override def receive: Receive = {
-    case Clone(baseDir, user, repo) => {
+    case Clone(baseDir, user, repo) =>
       val src = gDirectory.getRepositoryDir(user, repo)
       val dest = Directory.getRepositoryBackupDir(new File(baseDir), user, repo)
       JGitUtil.cloneRepository(src, dest)
@@ -32,7 +32,6 @@ class RepositoryCloneActor(mail: ActorRef) extends Actor with ActorLogging with 
 
       log.info("Clone repository {}/{}", user, repo)
       sender() ! ((): Unit)
-    }
   }
 
   override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
