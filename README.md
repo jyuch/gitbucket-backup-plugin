@@ -90,7 +90,6 @@ If you are using PostgreSQL, you have to run following to the setup sequence val
 
 ``` sql
 SELECT setval('label_label_id_seq', (select max(label_id) + 1 from label));
-SELECT setval('activity_activity_id_seq', (select max(activity_id) + 1 from activity));
 SELECT setval('access_token_access_token_id_seq', (select max(access_token_id) + 1 from access_token));
 SELECT setval('commit_comment_comment_id_seq', (select max(comment_id) + 1 from commit_comment));
 SELECT setval('commit_status_commit_status_id_seq', (select max(commit_status_id) + 1 from commit_status));
@@ -98,6 +97,10 @@ SELECT setval('milestone_milestone_id_seq', (select max(milestone_id) + 1 from m
 SELECT setval('issue_comment_comment_id_seq', (select max(comment_id) + 1 from issue_comment));
 SELECT setval('ssh_key_ssh_key_id_seq', (select max(ssh_key_id) + 1 from ssh_key));
 SELECT setval('priority_priority_id_seq', (select max(priority_id) + 1 from priority));
+SELECT setval('release_asset_release_asset_id_seq', (select max(release_asset_id) + 1 from release_asset));
+
+-- GitBucket 4.33.0 or before
+SELECT setval('activity_activity_id_seq', (select max(activity_id) + 1 from activity));
 ```
 
 For more details, see [External database configuration](https://github.com/gitbucket/gitbucket/wiki/External-database-configuration#postgresql).
