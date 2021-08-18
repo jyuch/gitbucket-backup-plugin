@@ -26,6 +26,7 @@ akka {
     schedules {
       Backup {
         expression = "0 0 0 * * ?"
+        timezone = "Asia/Tokyo"
       }
     }
   }
