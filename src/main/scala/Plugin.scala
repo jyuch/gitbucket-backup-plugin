@@ -15,7 +15,9 @@ class Plugin extends gitbucket.core.plugin.Plugin with ActorService {
     new Version("1.1.0"),
     new Version("1.2.0"),
     new Version("1.2.1"),
-    new Version("1.2.2"))
+    new Version("1.2.2"),
+    new Version("1.2.3"),
+    new Version("1.3.0"))
 
   private val logger = LoggerFactory.getLogger(classOf[Plugin])
 
