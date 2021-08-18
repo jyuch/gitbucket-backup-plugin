@@ -18,7 +18,8 @@ trait PluginSettingsService {
       config.getOptionalString("backup.s3.region"),
       config.getOptionalString("backup.s3.access-key"),
       config.getOptionalString("backup.s3.secret-key"),
-      config.getOptionalString("backup.s3.bucket")
+      config.getOptionalString("backup.s3.bucket"),
+      config.getOptionalInt("backup.s3.archive-limit")
     )
   }
 }
@@ -35,6 +36,7 @@ object PluginSettingsService {
       region: Option[String],
       accessKey: Option[String],
       secretKey: Option[String],
-      bucket: Option[String])
+      bucket: Option[String],
+      s3ArchiveLimit: Option[Int])
 
 }

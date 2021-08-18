@@ -80,8 +80,24 @@ class FinishingActor(mail: ActorRef) extends Actor with ActorLogging with Plugin
           .build()
 
         s3Client.putObject(new PutObjectRequest(s3.bucket, zip.getName, zip))
-
         log.info("Upload to Object storage complete")
+
+        config.s3ArchiveLimit foreach { n =>
+          if (n > 0) {
+            val pattern = """^backup-\d{12}\.zip$""".r
+            val objects = s3Client.listObjects(s3.bucket).getObjectSummaries.asScala
+            val t = objects.filter(
+              _.getKey match {
+                case pattern() => true
+                case _ => false
+              }).map(_.getKey).sorted.reverse.drop(n)
+
+            t foreach { o =>
+              log.info("Delete object {} in bucket", o)
+              s3Client.deleteObject(s3.bucket, o)
+            }
+          }
+        }
       }
 
       val tempDirectoryEntries = FileUtils.iterateFiles(tempBackupDir, TrueFileFilter.INSTANCE, TrueFileFilter.INSTANCE).asScala

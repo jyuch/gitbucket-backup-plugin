@@ -65,6 +65,11 @@ backup {
 
     # Bucket of backup destination
     bucket = "gitbucket"
+    
+    # Maximum number of backup archives to keep in bucket (if 0 or negative value, keep unlimited) (Optional)
+    # If not specified, keep unlimited
+    # Since 1.3.0
+    archive-limit = 10
   }
 }
 ```
