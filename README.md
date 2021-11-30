@@ -50,6 +50,9 @@ backup {
   # Notify email destination (Optional)
   notify-dest = ["jyuch@localhost"]
 
+  # Timeout value for backup (minutes) (Optional, default:30)
+  timeout = 60
+
   # S3 compatible object storage for backup upload (Optional)
   s3 {
     # Endpoing URL
