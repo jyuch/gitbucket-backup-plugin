@@ -21,7 +21,7 @@ class BackupActor extends Actor with PluginSettingsService {
 
   import BackupActor._
 
-  private val mailer = context.actorOf(Props[MailActor], "mailer")
+  private val mailer = context.actorOf(Props[MailActor](), "mailer")
   private val db = context.actorOf(DatabaseAccessActor.props(mailer), "db")
   private val cloner = context.actorOf(RepositoryCloneActor.props(mailer), "cloner")
   private val packer = context.actorOf(FinishingActor.props(mailer), "packer")
@@ -52,7 +52,7 @@ class BackupActor extends Actor with PluginSettingsService {
 object BackupActor {
 
   def props(): Props = {
-    Props[BackupActor]
+    Props[BackupActor]()
   }
 
   sealed case class DoBackup()
