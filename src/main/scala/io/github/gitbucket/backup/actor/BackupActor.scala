@@ -1,14 +1,15 @@
 package io.github.gitbucket.backup.actor
 
 import java.io.File
-import akka.actor.{Actor, Props}
+import akka.actor.{Actor, ActorLogging, Props}
 import akka.pattern._
 import akka.util.Timeout
 import gitbucket.core.util.{Directory => gDirectory}
 import io.github.gitbucket.backup.util.Directory
 import io.github.gitbucket.backup.actor.DatabaseAccessActor.DumpDatabase
-import io.github.gitbucket.backup.actor.FinishingActor.Finishing
-import io.github.gitbucket.backup.actor.MailActor.TestMail
+import io.github.gitbucket.backup.actor.ArchiverActor.Archive
+import io.github.gitbucket.backup.actor.MailActor.{BackupSuccess, TestMail}
+import io.github.gitbucket.backup.actor.ObjectStorageActor.PutArchive
 import io.github.gitbucket.backup.actor.RepositoryCloneActor.Clone
 import io.github.gitbucket.backup.service.PluginSettingsService
 
@@ -17,14 +18,15 @@ import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.language.postfixOps
 
-class BackupActor extends Actor with PluginSettingsService {
+class BackupActor extends Actor with ActorLogging with PluginSettingsService {
 
   import BackupActor._
 
   private val mailer = context.actorOf(Props[MailActor](), "mailer")
   private val db = context.actorOf(DatabaseAccessActor.props(mailer), "db")
   private val cloner = context.actorOf(RepositoryCloneActor.props(mailer), "cloner")
-  private val packer = context.actorOf(FinishingActor.props(mailer), "packer")
+  private val archiver = context.actorOf(ArchiverActor.props(mailer), "archiver")
+  private val storage = context.actorOf(ObjectStorageActor.props(mailer), "storage")
 
   private val config = loadPluginSettings()
 
@@ -41,7 +43,13 @@ class BackupActor extends Actor with PluginSettingsService {
         val c = r.map(cloner ? _)
 
         Future.sequence(c) foreach { _ =>
-          packer ! Finishing(tempBackupDir.getAbsolutePath, backupName)
+          for {
+            _ <- archiver ? Archive(tempBackupDir.getAbsolutePath, backupName)
+            _ <- storage ? PutArchive(backupName)
+          } yield {
+            log.info("Backup complete")
+            mailer ! BackupSuccess()
+          }
         }
       }
     case SendTestMail() =>
