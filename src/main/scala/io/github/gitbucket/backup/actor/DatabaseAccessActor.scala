@@ -25,6 +25,7 @@ class DatabaseAccessActor(mail: ActorRef) extends Actor with AccountService with
         val sqlFile = session.conn.exportAsSQL(allTables)
         val sqlBackup = new File(baseDir, "gitbucket.sql")
         FileUtils.copyFile(sqlFile, sqlBackup)
+        sqlFile.delete()
 
         val repos = for {
           user <- getAllUsers()
