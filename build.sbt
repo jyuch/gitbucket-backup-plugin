@@ -1,8 +1,8 @@
 name := "gitbucket-backup-plugin"
 organization := "io.github.gitbucket"
 version := "1.5.0-SNAPSHOT"
-scalaVersion := "2.13.7"
-gitbucketVersion := "4.36.0"
+scalaVersion := "2.13.8"
+gitbucketVersion := "4.38.0"
 
 libraryDependencies ++= Seq(
   "org.zeroturnaround" % "zt-zip" % "1.13",
