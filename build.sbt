@@ -2,7 +2,7 @@ name := "gitbucket-backup-plugin"
 organization := "io.github.gitbucket"
 version := "1.6.0-SNAPSHOT"
 scalaVersion := "2.13.10"
-gitbucketVersion := "4.38.0"
+gitbucketVersion := "4.39.0"
 
 libraryDependencies ++= Seq(
   "org.zeroturnaround" % "zt-zip" % "1.15",
