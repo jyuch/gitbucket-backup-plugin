@@ -1,6 +1,6 @@
 name := "gitbucket-backup-plugin"
 organization := "io.github.gitbucket"
-version := "1.6.0"
+version := "1.7.0-SNAPSHOT"
 scalaVersion := "2.13.10"
 gitbucketVersion := "4.39.0"
 
